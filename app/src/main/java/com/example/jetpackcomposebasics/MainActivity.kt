@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
+
 package com.example.jetpackcomposebasics
 
 import android.os.Bundle
@@ -23,6 +25,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -43,7 +47,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BasicsCodelabTheme {
-                MyApp(modifier = Modifier.fillMaxSize())
+                MyApp(modifier = Modifier.fillMaxSize(), this)
             }
         }
     }
@@ -122,7 +126,7 @@ fun GreetingsPreview() {
 }
 
 @Composable
-fun MyApp(modifier: Modifier = Modifier) {
+fun MyApp(modifier: Modifier = Modifier, activity: MainActivity) {
     var shouldShowOnboarding by rememberSaveable { mutableStateOf(true) }
 
     Surface(modifier) {
@@ -131,16 +135,10 @@ fun MyApp(modifier: Modifier = Modifier) {
                 shouldShowOnboarding = false
             })
         } else {
-            Greetings()
+//            Greetings()
+            val windowSizeClass = calculateWindowSizeClass(activity)
+            MySootheApp(windowSizeClass)
         }
-    }
-}
-
-@Preview
-@Composable
-fun MyAppPreview() {
-    BasicsCodelabTheme {
-        MyApp(Modifier.fillMaxSize())
     }
 }
 
