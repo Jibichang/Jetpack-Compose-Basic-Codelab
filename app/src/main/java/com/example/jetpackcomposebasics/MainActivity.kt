@@ -39,6 +39,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.jetpackcomposebasics.ui.state.WellnessScreen
 import com.example.jetpackcomposebasics.ui.theme.BasicsCodelabTheme
 import com.example.jetpackcomposebasics.ui.theme.JetpackComposeBasicsTheme
 
@@ -46,7 +47,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            BasicsCodelabTheme {
+            JetpackComposeBasicsTheme {
                 MyApp(modifier = Modifier.fillMaxSize(), this)
             }
         }
@@ -136,8 +137,16 @@ fun MyApp(modifier: Modifier = Modifier, activity: MainActivity) {
             })
         } else {
 //            Greetings()
-            val windowSizeClass = calculateWindowSizeClass(activity)
-            MySootheApp(windowSizeClass)
+
+//            val windowSizeClass = calculateWindowSizeClass(activity)
+//            MySootheApp(windowSizeClass)
+
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background
+            ) {
+                WellnessScreen()
+            }
         }
     }
 }
