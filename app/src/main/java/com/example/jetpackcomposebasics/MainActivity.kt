@@ -2,19 +2,23 @@
 
 package com.example.jetpackcomposebasics
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
@@ -40,6 +44,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jetpackcomposebasics.ui.state.WellnessScreen
+import com.example.jetpackcomposebasics.ui.theme.AppTheme
 import com.example.jetpackcomposebasics.ui.theme.BasicsCodelabTheme
 import com.example.jetpackcomposebasics.ui.theme.JetpackComposeBasicsTheme
 
@@ -47,7 +52,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            JetpackComposeBasicsTheme {
+            AppTheme {
                 MyApp(modifier = Modifier.fillMaxSize(), this)
             }
         }
@@ -166,16 +171,39 @@ fun OnboardingScreen(
             modifier = Modifier.padding(vertical = 24.dp),
             onClick = onContinueClicked
         ) {
-            Text(text = "Continue")
+            Text(
+                text = "Continue",
+                style = MaterialTheme.typography.titleLarge,
+                maxLines = 1,
+                modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
+                )
         }
     }
 }
 
-@Preview(showBackground = true, widthDp = 320, heightDp = 320)
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    name = "DefaultPreviewDark"
+)
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    name = "DefaultPreviewLight"
+)
 @Composable
 fun OnboardingPreview() {
-    BasicsCodelabTheme {
-        OnboardingScreen(onContinueClicked = {})
+    AppTheme {
+        Surface(tonalElevation = 5.dp) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp)
+                    .background(
+                        MaterialTheme.colorScheme.background,
+                        CircleShape
+                    )
+            ) {
+                OnboardingScreen(onContinueClicked = {})
+            }
+        }
     }
 }
-
